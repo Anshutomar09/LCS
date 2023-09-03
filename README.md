@@ -1,1 +1,18 @@
-# LCS
+ # LCS
+ class Solution {
+public:
+    int longestCommonSubsequence(string t1, string t2) {
+        int n=t1.size(),m=t2.size();
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        for (int j=0;j<=m;j++) dp[0][j]=0;//first colomn=0
+        for (int i=0;i<=n;i++) dp[i][0]=0;//first row=0
+
+        for (int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(t1[i-1]==t2[j-1]) dp[i][j]=1+dp[i-1][j-1];//if same char, add 1 to the diagonal number
+                else dp[i][j]=max(dp[i][j-1],dp[i-1][j]);//if not same consider the max number of i-1 and j-1 idx
+            }
+        }
+        return dp[n][m];
+    }
+};
